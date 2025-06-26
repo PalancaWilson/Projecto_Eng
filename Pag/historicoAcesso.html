@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cadastrar Veículo - ISPSECURITY</title>
+  <title>Histórico de Acessos - ISPSECURITY</title>
 
-  <!-- Tailwind via CDN -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Material Symbols (ícones) -->
+  <!-- Ícones Material -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
-  <!-- CSS personalizado -->
-  <link rel="stylesheet" href="../Estilos/estilo_cadastro.css">
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="../Estilos/historico.css">
 </head>
 <body class="bg-base">
 
@@ -26,11 +26,11 @@
           <span class="material-symbols-outlined">dashboard</span>
           Dashboard (Home)
         </a>
-        <a href="#" class="menu-item active">
+        <a href="#" class="menu-item">
           <span class="material-symbols-outlined">add_circle</span>
           Cadastrar Veículo
         </a>
-        <a href="#" class="menu-item">
+        <a href="#" class="menu-item active">
           <span class="material-symbols-outlined">history</span>
           Histórico de Acessos
         </a>
@@ -63,54 +63,33 @@
       <!-- Topo -->
       <div class="topbar">
         <div class="titulo-dashboard">
-          <span class="material-symbols-outlined">add_circle</span>
-          Cadastrar Veículo
+          <span class="material-symbols-outlined">history</span>
+          Histórico de Acessos
         </div>
         <button id="logout" class="btn-sair">
           <span class="material-symbols-outlined">power_settings_new</span>
         </button>
       </div>
 
-      <!-- Formulário de cadastro -->
-      <div class="form-card">
-        <h2 class="form-title">Informe os dados do veículo</h2>
-        <p class="form-note">* Todos os campos do formulário são obrigatórios</p>
+      <!-- Filtros -->
+      <div class="form-card mb-6">
+        <h3 class="form-title mb-4">Filtrar por:</h3>
+        <div class="flex flex-wrap gap-4">
+          <input type="date" class="form-input max-w-[180px]" />
+          <input type="text" placeholder="Matrícula" class="form-input max-w-[180px]" />
+          <select class="form-input max-w-[180px]">
+            <option disabled selected>Tipo de usuário</option>
+            <option>Estudante</option>
+            <option>Docente</option>
+            <option>Funcionário</option>
+            <option>Visitante</option>
+          </select>
+        </div>
+      </div>
 
-        <form class="space-y-4 mt-6">
-          <!-- Matrícula -->
-          <div>
-            <label class="form-label" for="matricula">Matrícula *</label>
-            <input type="text" id="matricula" name="matricula" placeholder="Ex: LD-19-36-GA" class="form-input" />
-          </div>
-
-          <!-- Proprietário -->
-          <div>
-            <label class="form-label" for="proprietario">Proprietário *</label>
-            <input type="text" id="proprietario" name="proprietario" placeholder="Insira o nome completo do proprietário" class="form-input" />
-          </div>
-
-          <!-- Tipo de usuário -->
-          <div>
-            <label class="form-label" for="tipo">Tipo de usuário *</label>
-            <select id="tipo" name="tipo" class="form-input">
-              <option>Estudante</option>
-              <option>Docente</option>
-              <option>Funcionário</option>
-              <option>Visitante</option>
-            </select>
-          </div>
-
-          <!-- Validade -->
-          <div>
-            <label class="form-label" for="validade">Validade *</label>
-            <input type="date" id="validade" name="validade" class="form-input" />
-          </div>
-
-          <!-- Botão -->
-          <div>
-            <button type="submit" class="btn-principal w-full">Cadastrar</button>
-          </div>
-        </form>
+      <!-- Tabela de dados -->
+      <div class="form-card h-[300px] flex items-center justify-center text-gray-400 text-lg italic">
+        Seus dados aparecerão aqui
       </div>
 
     </main>

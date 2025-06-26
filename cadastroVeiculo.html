@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastrar Veículo - ISPSECURITY</title>
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Material Symbols (ícones) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+  <!-- CSS personalizado -->
+  <link rel="stylesheet" href="estilo_cadastro.css">
+</head>
+<body class="bg-base">
+
+  <div class="container-dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h1 class="logo">ISPSECURITY</h1>
+      <nav class="menu">
+        <a href="#" class="menu-item">
+          <span class="material-symbols-outlined">dashboard</span>
+          Dashboard (home)
+        </a>
+        <a href="#" class="menu-item active">
+          <span class="material-symbols-outlined">add_circle</span>
+          Cadastrar Veículo
+        </a>
+        <a href="#" class="menu-item">
+          <span class="material-symbols-outlined">history</span>
+          Histórico de Acessos
+        </a>
+        <a href="#" class="menu-item">
+          <span class="material-symbols-outlined">manage_accounts</span>
+          Gerenciar Usuários
+        </a>
+        <a href="#" class="menu-item">
+          <span class="material-symbols-outlined">car_rental</span>
+          Permissões de Veículos
+        </a>
+        <a href="#" class="menu-item">
+          <span class="material-symbols-outlined">notifications</span>
+          Alertas
+        </a>
+        <a href="#" class="menu-item">
+          <span class="material-symbols-outlined">bar_chart</span>
+          Relatórios
+        </a>
+        <a href="#" class="menu-item">
+          <span class="material-symbols-outlined">settings</span>
+          Configurações
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+
+      <!-- Topo -->
+      <div class="topbar">
+        <div class="titulo-dashboard">
+          <span class="material-symbols-outlined">add_circle</span>
+          Cadastrar Veículo
+        </div>
+        <button id="logout" class="btn-sair">
+          <span class="material-symbols-outlined">power_settings_new</span>
+        </button>
+      </div>
+
+      <!-- Formulário de cadastro -->
+      <div class="form-card">
+        <h2 class="form-title">Informe os dados do veículo</h2>
+        <p class="form-note">* Todos os campos do formulário são obrigatórios</p>
+
+        <form class="space-y-4 mt-6">
+          <!-- Matrícula -->
+          <div>
+            <label class="form-label" for="matricula">Matrícula *</label>
+            <input type="text" id="matricula" name="matricula" placeholder="Ex: LD-19-36-GA" class="form-input" />
+          </div>
+
+          <!-- Proprietário -->
+          <div>
+            <label class="form-label" for="proprietario">Proprietário *</label>
+            <input type="text" id="proprietario" name="proprietario" placeholder="Insira o nome completo do proprietário" class="form-input" />
+          </div>
+
+          <!-- Tipo de usuário -->
+          <div>
+            <label class="form-label" for="tipo">Tipo de usuário *</label>
+            <select id="tipo" name="tipo" class="form-input">
+              <option>Estudante</option>
+              <option>Docente</option>
+              <option>Funcionário</option>
+              <option>Visitante</option>
+            </select>
+          </div>
+
+          <!-- Validade -->
+          <div>
+            <label class="form-label" for="validade">Validade *</label>
+            <input type="date" id="validade" name="validade" class="form-input" />
+          </div>
+
+          <!-- Botão -->
+          <div>
+            <button type="submit" class="btn-principal w-full">Cadastrar</button>
+          </div>
+        </form>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

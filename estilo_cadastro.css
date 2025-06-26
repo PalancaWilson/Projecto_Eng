@@ -1,0 +1,264 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Paleta e estrutura base */
+body.bg-base {
+    background-color: #f3f4f6;
+    font-family: sans-serif;
+}
+
+/* Layout principal */
+.container-dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+
+    background-color: #021156;
+    color: white;
+    padding: 1.5rem;
+    width: 373.152099609375;
+    height: 1024;
+
+}
+
+.logo-dasbord {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    width: 121;
+    height: 26;
+    top: 24.25px;
+    left: 80px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    width: 373;
+    height: 536;
+    top: 134px;
+    gap: 20px;
+}
+
+.menu-item {
+    padding: 0.6rem 1rem;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    color: white;
+    transition: background 0.2s;
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item.active {
+    background-color: #2563eb;
+}
+
+/* Conteúdo principal */
+.main-content {
+    flex: 1;
+    padding: 2rem;
+}
+
+
+/* Topbar */
+.topbar {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    width: 1066.8499755859375;
+    height: 70;
+    left: 373.15px;
+    padding-top: 6px;
+    padding-right: 80px;
+    padding-bottom: 6px;
+    padding-left: 20px;
+    background-color: white;
+}
+
+.titulo-dashboard {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1e40af;
+
+}
+
+.btn-sair {
+    font-size: 1.5rem;
+    color: #1e3a8a;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+}
+
+.btn-sair:hover {
+    color: #3b82f6;
+
+}
+
+/* Cards estatísticos */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    margin-bottom: 2rem;
+    background-color: #E6E7EE;
+    width: 961.0426635742188;
+    height: 287.7096252441406;
+    top: 118px;
+    left: 408px;
+    border-radius: 20px;
+    padding: 30px;
+    gap: 10px;
+}
+
+.card {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card .icon {
+    font-size: 1.75rem;
+    color: #2563eb;
+    margin-bottom: 0.5rem;
+}
+
+.card .valor {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.card .info {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+/* Conteúdo inferior */
+.conteudo-secundario {
+    background-color: #FFFFFF;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    width: 961.0399780273438;
+    height: 543.13427734375;
+    top: 432px;
+    left: 408.82px;
+    border-radius: 30px;
+}
+
+.conteudo-secundario h3 {
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.placeholder-linhas div {
+    height: 1.5rem;
+    background-color: #e5e7eb;
+    border-radius: 0.375rem;
+    margin-bottom: 0.75rem;
+
+}
+
+/* Botão com borda arredondada */
+.botao-arredondada {
+    width: 100%;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #6b7280;
+    /* text-gray-500 */
+    border: 1px solid #d1d5db;
+    /* border-gray-300 */
+    border-radius: 9999px;
+    /* full rounded */
+    background-color: transparent;
+    cursor: default;
+
+}
+
+
+
+.logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.menu-item .material-symbols-outlined {
+    font-size: 20px;
+}
+
+
+.btn-sair .material-symbols-outlined {
+    font-size: 24px;
+    color: #1e3a8a;
+}
+
+.btn-sair:hover .material-symbols-outlined {
+    color: #3b82f6;
+}
+
+/* Formulário */
+.form-card {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: 640px;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+}
+
+.form-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #111827;
+}
+
+.form-note {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+    color: #1e293b;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    background-color: #f1f5f9;
+    border: 1px solid #e5e7eb;
+    font-size: 0.95rem;
+}
+
+.btn-principal {
+    background-color: #2563eb;
+    color: white;
+    padding: 0.75rem;
+    font-weight: 600;
+    border-radius: 0.375rem;
+    transition: background 0.3s ease;
+}
+
+.btn-principal:hover {
+    background-color: #1e40af;
+}

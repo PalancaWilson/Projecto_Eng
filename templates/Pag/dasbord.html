@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - ISPSECURITY</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../Estilos/estilos.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body class="bg-base">
+
+  <div class="container-dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h1 class="logo">ISPSECURITY</h1>
+      <nav class="menu">
+        <a href="#" class="menu-item active">
+          <span class="material-symbols-outlined">dashboard</span>
+          Dashboard (Home)
+        <a href="#" class="menu-item">
+          <span class="material-symbols-outlined">add_circle</span>
+          Cadastrar Veículo</a>
+        <a href="#" class="menu-item">
+          <span class="material-symbols-outlined">history</span>
+          Histórico de Acessos</a>
+        <a href="#" class="menu-item">
+          <span class="material-symbols-outlined">manage_accounts</span>
+          Gerenciar Usuários</a>
+        <a href="#" class="menu-item">
+          <span class="material-symbols-outlined">car_rental</span>
+          Permissões de Veículos</a>
+        <a href="#" class="menu-item">
+          <span class="material-symbols-outlined">notifications</span>
+          Alertas</a>
+        <a href="#" class="menu-item">
+          <span class="material-symbols-outlined">bar_chart</span> Relatórios</a>
+        <a href="#" class="menu-item">
+          <span class="material-symbols-outlined">settings</span>
+          Configurações</a>
+      </nav>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+
+      <!-- Topo -->
+      <div class="topbar">
+        <div class="titulo-dashboard"><span class="material-symbols-outlined">
+          browse
+          </span> 
+          Dashboard</div>
+        <button id="logout" class="btn-sair">⏻</button>
+      </div>
+      
+      <!-- Cards estatísticos -->
+      <div class="cards-grid">
+        <div class="card">
+          <div class="icon"><span class="material-symbols-outlined">
+            no_crash
+            </span></div>
+          <h3>Veículos Autorizados</h3>
+          <p class="valor">423</p>
+          <button class="botao-arredondada">
+            Número total cadastrados
+          </button>
+
+
+          
+        </div>
+        <div class="card">
+          <div class="icon"><span class="material-symbols-outlined">
+            block
+            </span></div>
+          <h3>Tentativas negadas</h3>
+          <p class="valor">20</p>
+          <button class="botao-arredondada">
+            Últimas 24h
+          </button>
+          
+        </div>
+        <div class="card">
+          <div class="icon"><span class="material-symbols-outlined">
+            event_available
+            </span></div>
+          <h3>Acessos totais do dia</h3>
+          <p class="valor">132</p>
+          <button class="botao-arredondada">
+            Entrada/Saída
+          </button>
+          
+        </div>
+        <div class="card">
+          <div class="icon"><span class="material-symbols-outlined">
+            autorenew
+            </span></div>
+          <h3>Sincronizações pendentes</h3>
+          <p class="valor">17</p>
+          <button class="botao-arredondada">
+            Sistema offline
+          </button>
+          
+        </div>
+      </div>
+
+      <!-- Conteúdo inferior -->
+      <div class="conteudo-secundario">
+        <h3>Lorem Ipsum</h3>
+        <div class="placeholder-linhas">
+          <div></div><div></div><div></div><div></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../Javascrip/script.js"></script>
+</body>
+</html>

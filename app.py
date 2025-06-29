@@ -1,10 +1,11 @@
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
-from db_config import conexao
+from db_config import conectar
 
 app = Flask(__name__)
-CORS(app)  # Aplica CORS global
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True) # Aplica CORS global
+
 
 @app.route('/')
 def home():
@@ -22,7 +23,7 @@ def login():
     senha = dados.get('senha')
     tipo = dados.get('tipo')
 
-    conn = conexao()
+    conn =conectar()
     cursor = conn.cursor(dictionary=True)
 
     query = "SELECT * FROM usuarios WHERE email=%s AND senha=%s AND tipo=%s"
@@ -36,6 +37,35 @@ def login():
         return jsonify({"status": "sucesso", "usuario": usuario})
     else:
         return jsonify({"status": "erro", "mensagem": "Credenciais inválidas."}), 401
+
+@app.route('/cadastrar-veiculo', methods=['POST'])
+def cadastrar_veiculo():
+    dados = request.get_json()
+    matricula = dados.get('matricula')
+    proprietario = dados.get('proprietario')
+    tipo_usuario = dados.get('tipo_usuario')
+    validade = dados.get('validade')
+
+    if not all([matricula, proprietario, tipo_usuario, validade]):
+        return jsonify({"status": "erro", "mensagem": "Todos os campos são obrigatórios"}), 400
+
+    conn = conectar()
+    cursor = conn.cursor()
+
+    try:
+        query = """
+            INSERT INTO veiculos (matricula, proprietario, tipo_usuario, validade)
+            VALUES (%s, %s, %s, %s)
+        """
+        cursor.execute(query, (matricula, proprietario, tipo_usuario, validade))
+        conn.commit()
+        return jsonify({"status": "sucesso", "mensagem": "Veículo cadastrado com sucesso!"})
+    except Exception as e:
+        conn.rollback()
+        return jsonify({"status": "erro", "mensagem": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
 
 
 if __name__ == '__main__':

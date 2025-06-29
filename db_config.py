@@ -1,9 +1,19 @@
 import mysql.connector
 
-def conectar():
-    return mysql.connector.connect(
+
+
+conexao = mysql.connector.connect (
         host='localhost',
-        user='seu_usuario',
-        password='sua_senha',
+        user='root',
+        password='mutombo21',
         database='ispsecurity'
     )
+
+if conexao.is_connected():
+    print("Conetado com sucesso")
+
+cursor = conexao.cursor()
+
+conexao.close()
+cursor.close()
+

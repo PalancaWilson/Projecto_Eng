@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', function () {
   const btnEntrar = document.getElementById('btnEntrar');
 
@@ -23,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // Chamada à API Python (Flask)
-    fetch('http://localhost:5000/login', {
+    fetch('http://localhost:8000/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -37,9 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Redireciona com base no tipo de usuário
         if (tipo === 'Administrador') {
-          window.location.href = '../Paginas/dasbord.html';
-        } else if (tipo === 'Segurança') {
-          window.location.href = '../Paginas/dashboard_seguranca.html';
+          window.location.href = '../template/dasboard.html';
+        } else if (tipo === 'Seguranca') {
+          window.location.href = '../template/dashboard_seguranca.html';
         } else {
           alert('Tipo de usuário inválido!');
         }
@@ -49,10 +47,12 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .catch(error => {
       console.error('Erro ao conectar com o servidor:', error);
-      alert('Erro de conexão com o servidor');
+      alert('Erro de conexão com o servidor. Verifique se o backend está em execução.');
     });
   });
 });
+
+
 
 
 

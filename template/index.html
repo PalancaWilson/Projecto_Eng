@@ -47,10 +47,10 @@
           <p class="text-sm font-medium mb-2">Tipo de usuário</p>
           <div class="flex gap-4">
             <label class="flex items-center border px-4 py-2 rounded-md cursor-pointer">
-              <input type="radio" name="tipo" class="mr-2" /> Administrador
+              <input type="radio" name="tipo" class="mr-2"  value="Administrador" / > Administrador
             </label>
             <label class="flex items-center border px-4 py-2 rounded-md cursor-pointer">
-              <input type="radio" name="tipo" class="mr-2" /> Segurança
+              <input type="radio" name="tipo" class="mr-2" value="Seguranca" /> Segurança
             </label>
           </div>
         </div>
@@ -83,6 +83,8 @@
   </div>
 
   <!-- Script de interação -->
-  <script src="../Javascrip/script.js"></script>
+      <script src="../static/js/script.js"></script>
+  <!--   <script src="{{ url_for('static', filename='js/script.js') }}"></script> -->
+  <!-- <script src="{{ url_for('static', filename='js/script.js') }}"></script> -->
 </body>
 </html>

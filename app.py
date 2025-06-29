@@ -1,14 +1,8 @@
-from flask import Flask, jsonify, request
-from flask_cors import CORS
+from flask import Flask, request, jsonify
 from db_config import conectar
+import hashlib
 
 app = Flask(__name__)
-CORS(app)  # Permite conexões do frontend
-
-
-@app.route('/')
-def home():
-    return jsonify({"mensagem": "API ISPSECURITY ativa!"})
 
 
 @app.route('/login', methods=['POST'])
@@ -18,20 +12,35 @@ def login():
     senha = dados.get('senha')
     tipo = dados.get('tipo')
 
-    conn = conectar()
-    cursor = conn.cursor(dictionary=True)
+    if not email or not senha or not tipo:
+        return jsonify({'status': 'erro', 'mensagem': 'Campos obrigatórios em falta'}), 400
 
-    query = "SELECT * FROM usuarios WHERE email=%s AND senha=%s AND tipo=%s"
-    cursor.execute(query, (email, senha, tipo))
-    usuario = cursor.fetchone()
+    try:
+        conn = conectar()
+        cursor = conn.cursor(dictionary=True)
 
-    cursor.close()
-    conn.close()
+        # Opcional: criptografar a senha para comparar com hash (ex: hashlib)
+        senha_hash = hashlib.sha256(senha.encode()).hexdigest()
 
-    if usuario:
-        return jsonify({"status": "sucesso", "usuario": usuario})
-    else:
-        return jsonify({"status": "erro", "mensagem": "Credenciais inválidas."}), 401
+        cursor.execute("""
+            SELECT * FROM usuarios 
+            WHERE email = %s AND senha = %s AND tipo = %s
+        """, (email, senha_hash, tipo))
+
+        usuario = cursor.fetchone()
+
+        if usuario:
+            return jsonify({'status': 'sucesso', 'mensagem': 'Login válido'})
+        else:
+            return jsonify({'status': 'erro', 'mensagem': 'Usuário ou senha incorretos'}), 401
+
+    except Exception as erro:
+        return jsonify({'status': 'erro', 'mensagem': str(erro)}), 500
+
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
 
 
 if __name__ == '__main__':

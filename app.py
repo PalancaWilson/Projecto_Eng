@@ -1,46 +1,41 @@
-from flask import Flask, request, jsonify
-from db_config import conectar
-import hashlib
+
+from flask import Flask, jsonify, request
+from flask_cors import CORS, cross_origin
+from db_config import conexao
 
 app = Flask(__name__)
+CORS(app)  # Aplica CORS global
+
+@app.route('/')
+def home():
+    return jsonify({"mensagem": "API ISPSECURITY ativa!"})
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST', 'OPTIONS'])
+@cross_origin()  # <- CORS especificamente na rota
 def login():
+    if request.method == 'OPTIONS':
+        return '', 204  # resposta ao preflight
+
     dados = request.get_json()
     email = dados.get('email')
     senha = dados.get('senha')
     tipo = dados.get('tipo')
 
-    if not email or not senha or not tipo:
-        return jsonify({'status': 'erro', 'mensagem': 'Campos obrigatórios em falta'}), 400
+    conn = conexao()
+    cursor = conn.cursor(dictionary=True)
 
-    try:
-        conn = conectar()
-        cursor = conn.cursor(dictionary=True)
+    query = "SELECT * FROM usuarios WHERE email=%s AND senha=%s AND tipo=%s"
+    cursor.execute(query, (email, senha, tipo))
+    usuario = cursor.fetchone()
 
-        # Opcional: criptografar a senha para comparar com hash (ex: hashlib)
-        senha_hash = hashlib.sha256(senha.encode()).hexdigest()
+    cursor.close()
+    conn.close()
 
-        cursor.execute("""
-            SELECT * FROM usuarios 
-            WHERE email = %s AND senha = %s AND tipo = %s
-        """, (email, senha_hash, tipo))
-
-        usuario = cursor.fetchone()
-
-        if usuario:
-            return jsonify({'status': 'sucesso', 'mensagem': 'Login válido'})
-        else:
-            return jsonify({'status': 'erro', 'mensagem': 'Usuário ou senha incorretos'}), 401
-
-    except Exception as erro:
-        return jsonify({'status': 'erro', 'mensagem': str(erro)}), 500
-
-    finally:
-        if conn.is_connected():
-            cursor.close()
-            conn.close()
+    if usuario:
+        return jsonify({"status": "sucesso", "usuario": usuario})
+    else:
+        return jsonify({"status": "erro", "mensagem": "Credenciais inválidas."}), 401
 
 
 if __name__ == '__main__':

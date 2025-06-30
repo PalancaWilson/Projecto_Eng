@@ -9,11 +9,5 @@ def conectar():
         password='mutombo21',
         database='ispsecurity'
     )
-#if conectar.is_connected():
- #   print("Conetado com sucesso")
 
-#cursor = conectar.cursor()
-
-#conectar.close()
-#cursor.close()
 

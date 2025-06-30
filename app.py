@@ -26,7 +26,8 @@ def login():
     conn =conectar()
     cursor = conn.cursor(dictionary=True)
 
-    query = "SELECT * FROM usuarios WHERE email=%s AND senha=%s AND tipo=%s"
+    query = "SELECT * FROM funcionarios WHERE email=%s AND senha=%s AND cargo=%s"
+   
     cursor.execute(query, (email, senha, tipo))
     usuario = cursor.fetchone()
 
@@ -68,5 +69,42 @@ def cadastrar_veiculo():
         conn.close()
 
 
+@app.route('/dashboard-data', methods=['GET'])
+def dashboard_data():
+    conn = conectar()
+    cursor = conn.cursor()
+
+    # Total de veículos cadastrados
+    cursor.execute("SELECT COUNT(*) FROM veiculos_cadastrado")
+    total_veiculos = cursor.fetchone()[0]
+
+    # Total de acessos recusados
+    cursor.execute("SELECT COUNT(*) FROM acessos WHERE estado = 'Recusado'")
+    recusados = cursor.fetchone()[0]
+
+    # Acessos do dia atual
+    cursor.execute("SELECT COUNT(*) FROM acessos WHERE DATE(data_acesso) = CURDATE()")
+    acessos_dia = cursor.fetchone()[0]
+
+    # Acessos pendentes (se quiser usar estado NULL ou outro critério)
+    cursor.execute("SELECT COUNT(*) FROM acessos WHERE estado IS NULL OR estado = ''")
+    pendentes = cursor.fetchone()[0]
+
+    cursor.close()
+    conn.close()
+
+    return jsonify({
+        "total_veiculos": total_veiculos,
+        "recusados": recusados,
+        "acessos_dia": acessos_dia,
+        "pendentes": pendentes
+    })
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
+
+

@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           if (tipo === "Administrador") {
             window.location.href = "dasbord.html";
-          } else if (tipo === "Segurança") {
+          } else if (tipo === "Seguranca") {
             window.location.href = "dashboard_seguranca.html";
           } else {
             alert("Tipo de usuário inválido.");
@@ -86,4 +86,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+});
+
+
+
+
+
+// Dasbord 
+
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("http://127.0.0.1:5000/dashboard-data")
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("totalVeiculos").textContent = data.total_veiculos;
+      document.getElementById("tentativasNegadas").textContent = data.recusados;
+      document.getElementById("acessosDia").textContent = data.acessos_dia;
+      document.getElementById("pendencias").textContent = data.pendentes;
+    })
+    .catch(error => {
+      console.error("Erro ao buscar dados do dashboard:", error);
+      alert("Não foi possível carregar as informações do painel.");
+    });
 });

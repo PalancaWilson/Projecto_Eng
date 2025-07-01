@@ -22,35 +22,42 @@
     <aside class="sidebar">
       <h1 class="logo">ISPSECURITY</h1>
       <nav class="menu">
-        <a href="#" class="menu-item">
+        <a href="../template/dasbord.html" class="menu-item ">
           <span class="material-symbols-outlined">dashboard</span>
           Dashboard (Home)
         </a>
-        <a href="#" class="menu-item active">
+      
+        <a href="../template/cadastroVeiculo.html" class="menu-item active">
           <span class="material-symbols-outlined">add_circle</span>
           Cadastrar Veículo
         </a>
-        <a href="#" class="menu-item">
+      
+        <a href="../template/historicoAcesso.html" class="menu-item">
           <span class="material-symbols-outlined">history</span>
           Histórico de Acessos
         </a>
-        <a href="#" class="menu-item">
+      
+        <a href="usuarios.html" class="menu-item">
           <span class="material-symbols-outlined">manage_accounts</span>
           Gerenciar Usuários
         </a>
-        <a href="#" class="menu-item">
+      
+        <a href="permissoes.html" class="menu-item">
           <span class="material-symbols-outlined">car_rental</span>
           Permissões de Veículos
         </a>
-        <a href="#" class="menu-item">
+      
+        <a href="alertas.html" class="menu-item">
           <span class="material-symbols-outlined">notifications</span>
           Alertas
         </a>
-        <a href="#" class="menu-item">
+      
+        <a href="relatorios.html" class="menu-item">
           <span class="material-symbols-outlined">bar_chart</span>
           Relatórios
         </a>
-        <a href="#" class="menu-item">
+      
+        <a href="configuracoes.html" class="menu-item">
           <span class="material-symbols-outlined">settings</span>
           Configurações
         </a>
@@ -76,41 +83,64 @@
         <h2 class="form-title">Informe os dados do veículo</h2>
         <p class="form-note">* Todos os campos do formulário são obrigatórios</p>
 
-        <form id="formVeiculo" class="space-y-4 mt-6">
-          <!-- Matrícula -->
-          <div>
-            <label class="form-label" for="matricula">Matrícula *</label>
-            <input type="text" id="matricula" name="matricula" placeholder="Ex: LD-19-36-GA" class="form-input" />
-          </div>
+         <form id="formCadastroVeiculo" enctype="multipart/form-data" class="space-y-4">
 
-          <!-- Proprietário -->
-          <div>
-            <label class="form-label" for="proprietario">Proprietário *</label>
-            <input type="text" id="proprietario" name="proprietario" placeholder="Insira o nome completo do proprietário" class="form-input" />
-          </div>
+      <!-- Matrícula -->
+      <div class="mb-4">
+        <label for="matricula" class="block font-medium mb-1">Matrícula</label>
+        <input type="text" id="matricula" name="matricula" required
+               class="w-full border px-4 py-2 rounded" placeholder="Ex: LD-51-15-HZ" />
+      </div>
 
-          <!-- Tipo de usuário -->
-          <div>
-            <label class="form-label" for="tipo">Tipo de usuário *</label>
-            <select id="tipo" name="tipo" class="form-input">
-              <option>Estudante</option>
-              <option>Docente</option>
-              <option>Funcionário</option>
-              <option>Visitante</option>
-            </select>
-          </div>
+      <!-- Proprietário -->
+      <div class="mb-4">
+        <label for="proprietario" class="block font-medium mb-1">Nome do Proprietário</label>
+        <input type="text" id="proprietario" name="proprietario" required
+               class="w-full border px-4 py-2 rounded" placeholder="Ex: João Manuel" />
+      </div>
 
-          <!-- Validade -->
-          <div>
-            <label class="form-label" for="validade">Validade *</label>
-            <input type="date" id="validade" name="validade" class="form-input" />
-          </div>
+      <!-- Tipo de Usuário (dropdown com dados da base) -->
+      <div class="mb-4">
+        <label for="tipo_usuario" class="block font-medium mb-1">Tipo de Usuário</label>
+        <select id="tipo_usuario" name="tipo_usuario" required class="w-full border px-4 py-2 rounded">
+          <option value="">Selecione...</option>
+          <!-- Será preenchido via JS com frequentadores -->
+        </select>
+      </div>
 
-          <!-- Botão -->
-          <div>
-            <button type="submit" class="btn-principal w-full">Cadastrar</button>
-          </div>
-        </form>
+      <!-- Marca -->
+      <div class="mb-4">
+        <label for="marca" class="block font-medium mb-1">Marca</label>
+        <input type="text" id="marca" name="marca" class="w-full border px-4 py-2 rounded" placeholder="Ex: Toyota" />
+      </div>
+
+      <!-- Modelo -->
+      <div class="mb-4">
+        <label for="modelo" class="block font-medium mb-1">Modelo</label>
+        <input type="text" id="modelo" name="modelo" class="w-full border px-4 py-2 rounded" placeholder="Ex: Corolla" />
+      </div>
+
+      <!-- Estado -->
+      <div class="mb-4">
+        <label for="estado" class="block font-medium mb-1">Estado do Veículo</label>
+        <select id="estado" name="estado" class="w-full border px-4 py-2 rounded">
+          <option value="Ativo" selected>Ativo</option>
+          <option value="Inativo">Inativo</option>
+        </select>
+      </div>
+
+      <!-- Imagem -->
+      <div class="mb-6">
+        <label for="imagem" class="block font-medium mb-1">Imagem do Veículo</label>
+        <input type="file" id="imagem" name="imagem" accept="image/*" class="w-full" />
+      </div>
+
+      <!-- Botão de envio -->
+      <button type="submit"
+              class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+        Cadastrar Veículo
+      </button>
+    </form>
       </div>
 
     </main>

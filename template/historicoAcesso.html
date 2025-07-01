@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
   <!-- Estilos personalizados -->
-  <link rel="stylesheet" href="../Estilos/historico.css">
+  <link rel="stylesheet" href="../static/css/historico.css">
 </head>
 <body class="bg-base">
 
@@ -22,35 +22,42 @@
     <aside class="sidebar">
       <h1 class="logo">ISPSECURITY</h1>
       <nav class="menu">
-        <a href="#" class="menu-item">
+        <a href="../template/dasbord.html" class="menu-item ">
           <span class="material-symbols-outlined">dashboard</span>
           Dashboard (Home)
         </a>
-        <a href="#" class="menu-item">
+      
+        <a href="../template/cadastroVeiculo.html" class="menu-item ">
           <span class="material-symbols-outlined">add_circle</span>
           Cadastrar Veículo
         </a>
-        <a href="#" class="menu-item active">
+      
+        <a href="../template/historicoAcesso.html" class="menu-item active">
           <span class="material-symbols-outlined">history</span>
           Histórico de Acessos
         </a>
-        <a href="#" class="menu-item">
+      
+        <a href="usuarios.html" class="menu-item">
           <span class="material-symbols-outlined">manage_accounts</span>
           Gerenciar Usuários
         </a>
-        <a href="#" class="menu-item">
+      
+        <a href="permissoes.html" class="menu-item">
           <span class="material-symbols-outlined">car_rental</span>
           Permissões de Veículos
         </a>
-        <a href="#" class="menu-item">
+      
+        <a href="alertas.html" class="menu-item">
           <span class="material-symbols-outlined">notifications</span>
           Alertas
         </a>
-        <a href="#" class="menu-item">
+      
+        <a href="relatorios.html" class="menu-item">
           <span class="material-symbols-outlined">bar_chart</span>
           Relatórios
         </a>
-        <a href="#" class="menu-item">
+      
+        <a href="configuracoes.html" class="menu-item">
           <span class="material-symbols-outlined">settings</span>
           Configurações
         </a>
@@ -99,60 +106,33 @@
           </div>
         </div>
 
-                    <!-- Tabela com Scroll -->
-            <div class="bg-white rounded-xl shadow-sm overflow-auto max-h-[420px]">
-              <table class="w-full text-sm text-left border-separate border-spacing-y-2 min-w-[700px]">
-                <thead class="text-gray-600 font-medium bg-white sticky top-0 z-10">
-                  <tr>
-                    <th class="px-4 py-2">Data</th>
-                    <th class="px-4 py-2">Hora</th>
-                    <th class="px-4 py-2">Tipo de usuário</th>
-                    <th class="px-4 py-2">Matrícula</th>
-                    <th class="px-4 py-2">Estado</th>
-                    <th class="px-4 py-2">Ação</th>
-                  </tr>
-                </thead>
-                <tbody class="text-gray-800">
-                  <tr class="bg-gray-50 rounded-lg">
-                    <td class="px-4 py-2">25/06/2025</td>
-                    <td class="px-4 py-2">07:37</td>
-                    <td class="px-4 py-2">Estudante</td>
-                    <td class="px-4 py-2">LD-51-15-HZ</td>
-                    <td class="px-4 py-2"><span class="text-green-600 font-semibold">Autorizado</span></td>
-                    <td class="px-4 py-2 text-center">
-                      <span class="material-symbols-outlined cursor-pointer text-gray-600 hover:text-gray-900">download</span>
-                    </td>
-                  </tr>
-                  <tr class="bg-gray-50 rounded-lg">
-                    <td class="px-4 py-2">25/06/2025</td>
-                    <td class="px-4 py-2">10:14</td>
-                    <td class="px-4 py-2">Professor</td>
-                    <td class="px-4 py-2">LD-51-15-HZ</td>
-                    <td class="px-4 py-2"><span class="text-green-600 font-semibold">Autorizado</span></td>
-                    <td class="px-4 py-2 text-center">
-                      <span class="material-symbols-outlined cursor-pointer text-gray-600 hover:text-gray-900">download</span>
-                    </td>
-                  </tr>
-                  <tr class="bg-gray-50 rounded-lg">
-                    <td class="px-4 py-2">25/06/2025</td>
-                    <td class="px-4 py-2">15:30</td>
-                    <td class="px-4 py-2">Professor</td>
-                    <td class="px-4 py-2">LD-51-15-HZ</td>
-                    <td class="px-4 py-2"><span class="text-red-600 font-semibold">Recusado</span></td>
-                    <td class="px-4 py-2 text-center">
-                      <span class="material-symbols-outlined cursor-pointer text-gray-600 hover:text-gray-900">download</span>
-                    </td>
-                  </tr>
-                  <!-- Adicione mais linhas conforme necessário -->
-                </tbody>
-              </table>
-            </div>
+                                  <!-- Tabela com Scroll -->
+                          <!-- Tabela com Scroll -->
+              <div class="bg-white rounded-xl shadow-sm overflow-auto max-h-[420px]">
+                <table class="w-full text-sm text-left border-separate border-spacing-y-2 min-w-[700px]">
+                  <thead class="text-gray-600 font-medium bg-white sticky top-0 z-10">
+                    <tr>
+                      <th class="px-4 py-2">Data</th>
+                      <th class="px-4 py-2">Hora</th>
+                      <th class="px-4 py-2">Tipo de usuário</th>
+                      <th class="px-4 py-2">Matrícula</th>
+                      <th class="px-4 py-2">Estado</th>
+                      <th class="px-4 py-2">Ação</th>
+                    </tr>
+                  </thead>
+                   <tbody id="acessosTableBody" class="text-gray-800">
+
+                    <!-- As linhas serão inseridas dinamicamente pelo JavaScript -->
+                  </tbody>
+                </table>
+              </div>
+
 
         </div>
 
     </main>
   </div>
 
-  <script src="/static/js/script.js"></script>
+  <script src="../static/js/script.js"></script>
 </body>
 </html>

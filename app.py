@@ -26,7 +26,7 @@ def login():
     senha = dados.get('senha')
     tipo = dados.get('tipo')
 
-    conn =conectar()
+    conn = conectar()
     cursor = conn.cursor(dictionary=True)
 
     query = "SELECT * FROM funcionarios WHERE email=%s AND senha=%s AND cargo=%s"
@@ -42,6 +42,53 @@ def login():
     else:
         return jsonify({"status": "erro", "mensagem": "Credenciais inválidas."}), 401
 
+
+@app.route('/cadastrar-veiculo', methods=['POST'])
+def cadastrar_veiculo():
+    # Coleta dados do formulário via FormData
+    matricula = request.form.get('matricula')
+    proprietario = request.form.get('proprietario')
+    tipo_usuario = request.form.get('tipo_usuario')
+    marca = request.form.get('marca')
+    modelo = request.form.get('modelo')
+    estado = request.form.get('estado', 'Ativo')
+    cadastrado_por = 1  # ID fictício do usuário logado
+
+    imagem = request.files.get('imagem')
+
+    # Validação de campos obrigatórios
+    if not all([matricula, proprietario, tipo_usuario]):
+        return jsonify({"status": "erro", "mensagem": "Preencha todos os campos obrigatórios."}), 400
+
+    # Salvar imagem (se enviada)
+    nome_arquivo = None
+    if imagem and imagem.filename != '':
+        nome_seguro = secure_filename(imagem.filename)
+        caminho = os.path.join(UPLOAD_FOLDER, nome_seguro)
+        imagem.save(caminho)
+        nome_arquivo = nome_seguro
+
+    # Inserção no banco de dados
+    try:
+        conn = conectar()
+        cursor = conn.cursor()
+        query = """
+            INSERT INTO veiculos_cadastrado 
+            (matricula, proprietario, tipo_usuario, marca, modelo, estado, imagem, cadastrado_por)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        cursor.execute(query, (
+            matricula, proprietario, tipo_usuario,
+            marca, modelo, estado, nome_arquivo, cadastrado_por
+        ))
+        conn.commit()
+        return jsonify({"status": "sucesso", "mensagem": "Veículo cadastrado com sucesso!"})
+    except Exception as e:
+        conn.rollback()
+        return jsonify({"status": "erro", "mensagem": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
 
 
 @app.route('/dashboard-data', methods=['GET'])
@@ -89,51 +136,6 @@ def listar_frequentadores():
 
 UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
-
-@app.route('/cadastrar-veiculo', methods=['POST'])
-def cadastrar_veiculo():
-    matricula = request.formVeiculo.get('matricula')
-    proprietario = request.formVeiculo.get('proprietario')
-    tipo_usuario = request.formVeiculo.get('tipo_usuario')
-    marca = request.formVeiculo.get('marca')
-    modelo = request.formVeiculo.get('modelo')
-    estado = request.formVeiculo.get('estado', 'Ativo')
-    cadastrado_por = 1  # Simulando usuário logado
-    imagem = request.files.get('imagem')
-    
-    if not all([matricula, proprietario, tipo_usuario]):
-        return jsonify({"status": "erro", "mensagem": "Erro ao cadastrar. Tente novamente."}), 400
-
-    # Salvar a imagem se existir
-    nome_arquivo = None
-    if imagem:
-        nome_seguro = secure_filename(imagem.filename)
-        caminho = os.path.join(UPLOAD_FOLDER, nome_seguro)
-        imagem.save(caminho)
-        nome_arquivo = nome_seguro
-
-    conn = conectar()
-    cursor = conn.cursor()
-
-    try:
-        query = """
-            INSERT INTO veiculos_cadastrado 
-            (matricula, proprietario, tipo_usuario, marca, modelo, estado, imagem, cadastrado_por)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """
-        cursor.execute(query, (
-            matricula, proprietario, tipo_usuario,
-            marca, modelo, estado, nome_arquivo, cadastrado_por
-        ))
-        conn.commit()
-        return jsonify({"status": "sucesso", "mensagem": "Veículo cadastrado com sucesso!"})
-    except Exception as e:
-        conn.rollback()
-        return jsonify({"status": "erro", "mensagem": str(e)}), 500
-    finally:
-        cursor.close()
-        conn.close()
 
 
 if __name__ == '__main__':

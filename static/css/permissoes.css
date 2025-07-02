@@ -211,3 +211,59 @@ body.bg-base {
     font-size: 0.95rem; }
 
     
+
+        /* Matrícula info */
+        .matricula-info h2 {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin: 0;
+            color: #101a47;
+        }
+    
+        .matricula-info p {
+            color: #3752ac;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 2rem; }
+
+        /* Formulário */
+        .formulario {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+    
+        .formulario label {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+    
+        .formulario input,
+        .formulario select {
+            background-color: #f1f3f7;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #666;
+            cursor: not-allowed;
+        }
+    
+        .btn-save {
+            margin-top: 1.5rem;
+            background-color: #3162f1;
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            width: fit-content;
+            transition: background-color 0.2s ease;
+        }
+    
+        .btn-save:hover {
+            background-color: #2149cc; }

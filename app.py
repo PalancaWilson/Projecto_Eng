@@ -26,7 +26,7 @@ def login():
     senha = dados.get('senha')
     tipo = dados.get('tipo')
 
-    conn = conectar()
+    conn =conectar()
     cursor = conn.cursor(dictionary=True)
 
     query = "SELECT * FROM funcionarios WHERE email=%s AND senha=%s AND cargo=%s"
@@ -41,8 +41,6 @@ def login():
         return jsonify({"status": "sucesso", "usuario": usuario})
     else:
         return jsonify({"status": "erro", "mensagem": "Credenciais inválidas."}), 401
-
-
 @app.route('/cadastrar-veiculo', methods=['POST'])
 def cadastrar_veiculo():
     # Coleta dados do formulário via FormData
@@ -91,6 +89,7 @@ def cadastrar_veiculo():
         conn.close()
 
 
+
 @app.route('/dashboard-data', methods=['GET'])
 def dashboard_data():
     conn = conectar()
@@ -136,6 +135,49 @@ def listar_frequentadores():
 
 UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+@app.route('/api/historico', methods=['GET'])
+def historico_acessos():
+    try:
+        conn = conectar()
+        cursor = conn.cursor(dictionary=True)
+
+        busca = request.args.get('busca', '').strip()
+
+        query = """
+            SELECT 
+                a.data_acesso,
+                a.hora_acesso,
+                f.tipo AS tipo_usuario,
+                v.matricula,
+                a.estado
+            FROM acessos a
+            JOIN veiculos_cadastrado v ON a.id_carro = v.id_veiculo
+            JOIN frequentadores f ON a.tipo_frequentador = f.id_frequentador
+        """
+
+        if busca:
+            query += " WHERE v.matricula LIKE %s"
+            cursor.execute(query + " ORDER BY a.data_acesso DESC, a.hora_acesso DESC", [f"%{busca}%"])
+        else:
+            query += " ORDER BY a.data_acesso DESC, a.hora_acesso DESC"
+            cursor.execute(query)
+
+        acessos = cursor.fetchall()
+
+        for a in acessos:
+            a["hora_acesso"] = str(a["hora_acesso"])
+
+        return jsonify(acessos)
+
+    except Exception as e:
+        print("Erro ao filtrar histórico:", e)
+        return jsonify({"erro": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
+
 
 
 if __name__ == '__main__':

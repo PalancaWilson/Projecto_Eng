@@ -64,12 +64,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // HISTÓRICO DE ACESSOS
-  if (document.getElementById("acessosTableBody")) {
+  const tbody = document.getElementById("acessosTableBody");
+  if (tbody) {
     fetch("http://127.0.0.1:5000/api/historico")
       .then(response => response.json())
       .then(dados => {
-        const tbody = document.getElementById("acessosTableBody");
         tbody.innerHTML = "";
+
+        if (!Array.isArray(dados)) {
+          console.error("Erro de formato:", dados);
+          tbody.innerHTML = '<tr><td colspan="6" class="text-center text-red-500 py-4">Erro ao carregar os acessos.</td></tr>';
+          return;
+        }
 
         if (dados.length === 0) {
           tbody.innerHTML = '<tr><td colspan="6" class="text-center text-gray-500 py-4">Nenhum acesso encontrado.</td></tr>';
@@ -99,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch(error => {
         console.error("Erro ao carregar acessos:", error);
-        const tbody = document.getElementById("acessosTableBody");
         tbody.innerHTML = '<tr><td colspan="6" class="text-center text-red-500 py-4">Erro ao carregar acessos.</td></tr>';
       });
   }
@@ -114,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(data => {
         data.forEach(f => {
           const option = document.createElement("option");
-          option.value = f.id_frequentador;  // Corrigido para enviar ID inteiro
+          option.value = f.id_frequentador;
           option.textContent = `${f.nome} (${f.tipo})`;
           selectTipoUsuario.appendChild(option);
         });
@@ -156,4 +161,63 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
   }
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const tbody = document.getElementById("acessosTableBody");
+  const campoBusca = document.querySelector("input[placeholder*='matrícula']");
+  const btnsFiltro = document.querySelectorAll(".menu-filtro");
+
+  function carregarAcessos(filtro = "") {
+    let url = "http://127.0.0.1:5000/api/historico";
+    if (filtro) url += "?" + filtro;
+
+    fetch(url)
+      .then(response => response.json())
+      .then(dados => {
+        tbody.innerHTML = "";
+
+        if (!Array.isArray(dados) || dados.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" class="text-center text-gray-500 py-4">Nenhum acesso encontrado.</td></tr>';
+          return;
+        }
+
+        dados.forEach(acesso => {
+          const tr = document.createElement("tr");
+          tr.classList.add("bg-gray-50", "rounded-lg");
+
+          tr.innerHTML = `
+            <td class="px-4 py-2">${acesso.data_acesso}</td>
+            <td class="px-4 py-2">${acesso.hora_acesso}</td>
+            <td class="px-4 py-2">${acesso.tipo_usuario}</td>
+            <td class="px-4 py-2">${acesso.matricula}</td>
+            <td class="px-4 py-2">
+              <span class="${acesso.estado === 'Autorizado' ? 'text-green-600' : 'text-red-600'} font-semibold">
+                ${acesso.estado}
+              </span>
+            </td>
+            <td class="px-4 py-2 text-center">
+              <span class="material-symbols-outlined cursor-pointer text-gray-600 hover:text-gray-900">download</span>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      })
+      .catch(error => {
+        console.error("Erro ao carregar acessos:", error);
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-red-500 py-4">Erro ao carregar acessos.</td></tr>';
+      });
+  }
+
+  // Busca dinâmica por matrícula
+  if (campoBusca) {
+    campoBusca.addEventListener("input", () => {
+      const valor = campoBusca.value.trim();
+      carregarAcessos(valor ? "busca=" + encodeURIComponent(valor) : "");
+    });
+  }
+
+  carregarAcessos(); // inicial
 });

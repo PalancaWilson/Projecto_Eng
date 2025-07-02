@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Histórico de Acessos - ISPSECURITY</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Ícones Material -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="../static/css/historico.css">
+</head>
+<body class="bg-base">
+
+  <div class="container-dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h1 class="logo">ISPSECURITY</h1>
+      <nav class="menu">
+        <a href="../template/dasbord.html" class="menu-item ">
+          <span class="material-symbols-outlined">dashboard</span>
+          Dashboard (Home)
+        </a>
+      
+        <a href="../template/cadastroVeiculo.html" class="menu-item ">
+          <span class="material-symbols-outlined">add_circle</span>
+          Cadastrar Veículo
+        </a>
+      
+        <a href="../template/historicoAcesso.html" class="menu-item ">
+          <span class="material-symbols-outlined">history</span>
+          Histórico de Acessos
+        </a>
+      
+        <a href="../template/gerenciarUsuario.html" class="menu-item active">
+          <span class="material-symbols-outlined">manage_accounts</span>
+          Gerenciar Usuários
+        </a>
+      
+        <a href="permissoes.html" class="menu-item">
+          <span class="material-symbols-outlined">car_rental</span>
+          Permissões de Veículos
+        </a>
+      
+        <a href="alertas.html" class="menu-item">
+          <span class="material-symbols-outlined">notifications</span>
+          Alertas
+        </a>
+      
+        <a href="relatorios.html" class="menu-item">
+          <span class="material-symbols-outlined">bar_chart</span>
+          Relatórios
+        </a>
+      
+        <a href="configuracoes.html" class="menu-item">
+          <span class="material-symbols-outlined">settings</span>
+          Configurações
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+
+      <!-- Topo -->
+      <div class="topbar">
+        <div class="titulo-dashboard">
+          <span class="material-symbols-outlined">manage_accounts</span>
+          Gerenciar Usuários
+        </div>
+        <button id="logout" class="btn-sair">
+          <span class="material-symbols-outlined">power_settings_new</span>
+        </button>
+      </div>
+
+              <!-- Filtros -->
+        <div class="bg-white p-6 rounded-xl shadow-sm mb-6">
+          <div class="flex flex-wrap gap-4">
+          
+            <!-- Campo de Pesquisa -->
+            <div class="flex items-center bg-gray-100 text-sm px-4 py-2 rounded flex-1">
+              <span class="material-symbols-outlined text-gray-500 mr-2 text-base">search</span>
+              <input type="text" placeholder="Pesquisar matrícula ou proprietário" class="bg-transparent outline-none flex-1" />
+            </div>
+
+                <button type="submit"
+                  class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+                Cadastrar Veículo
+                </button>
+          </div>
+        </div>
+
+                                  <!-- Tabela com Scroll -->
+                          <!-- Tabela com Scroll -->
+              <div class="bg-white rounded-xl shadow-sm overflow-auto max-h-[420px]">
+                <table class="w-full text-sm text-left border-separate border-spacing-y-2 min-w-[700px]">
+                  <thead class="text-gray-600 font-medium bg-white sticky top-0 z-10">
+                    <tr>
+                      <th class="px-4 py-2">Nome</th>
+                      <th class="px-4 py-2">Email</th>
+                      <th class="px-4 py-2">Tipo de usuário</th>
+                      <th class="px-4 py-2">Estado</th>
+                      <th class="px-4 py-2">Ação</th>
+                    </tr>
+                  </thead>
+                   <tbody id="acessosTableBody" class="text-gray-800">
+
+                    <!-- As linhas serão inseridas dinamicamente pelo JavaScript -->
+                  </tbody>
+                </table>
+              </div>
+
+
+        </div>
+
+    </main>
+  </div>
+
+  <script src="../static/js/script.js"></script>
+</body>
+</html>

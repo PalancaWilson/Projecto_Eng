@@ -259,6 +259,133 @@ def historico_acessos():
         conn.close()
 
 
+@app.route('/api/acessos', methods=['POST'])
+def inserir_acesso():
+    try:
+        dados = request.get_json()
+        id_carro = dados.get('id_carro')
+        tipo_frequentador = dados.get('tipo_frequentador')
+        estado = dados.get('estado', 'Pendente')  # Estado inicial
+
+        if not id_carro or not tipo_frequentador:
+            return jsonify({"status": "erro", "mensagem": "Campos obrigatórios faltando."}), 400
+
+        conn = conectar()
+        cursor = conn.cursor()
+
+        query = """
+            INSERT INTO acessos (id_carro, tipo_frequentador, data_acesso, hora_acesso, estado)
+            VALUES (%s, %s, CURDATE(), CURTIME(), %s)
+        """
+        cursor.execute(query, (id_carro, tipo_frequentador, estado))
+        conn.commit()
+
+        return jsonify({"status": "sucesso", "mensagem": "Acesso inserido com sucesso!"})
+
+    except Exception as e:
+        print("Erro ao inserir acesso:", e)
+        return jsonify({"status": "erro", "mensagem": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
+
+@app.route('/api/acessos/<int:id_acesso>', methods=['DELETE'])
+def remover_acesso(id_acesso):
+    try:
+        conn = conectar()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM acessos WHERE id_acesso = %s", (id_acesso,))
+        conn.commit()
+
+        if cursor.rowcount == 0:
+            return jsonify({"status": "erro", "mensagem": "Acesso não encontrado."}), 404
+
+        return jsonify({"status": "sucesso", "mensagem": "Acesso removido com sucesso!"})
+
+    except Exception as e:
+        print("Erro ao remover acesso:", e)
+        return jsonify({"status": "erro", "mensagem": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
+# ROTAS CRUD para permissões de veículos
+
+
+# Criar permissão
+@app.route('/api/permissoes', methods=['POST'])
+def criar_permissao():
+    dados = request.get_json()
+    id_veiculo = dados.get('id_veiculo')
+    validade = dados.get('validade')  # formato: AAAA-MM-DD
+    horario = dados.get('horario_acesso')
+    tipo = dados.get('tipo_usuario')
+
+    conn = conectar()
+    cursor = conn.cursor()
+    query = """INSERT INTO permissoes_acesso (id_veiculo, validade, horario_acesso, tipo_usuario)
+               VALUES (%s, %s, %s, %s)"""
+    cursor.execute(query, (id_veiculo, validade, horario, tipo))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return jsonify({"status": "sucesso", "mensagem": "Permissão criada com sucesso!"})
+
+
+# Ler permissões
+@app.route('/api/permissoes', methods=['GET'])
+def listar_permissoes():
+    conn = conectar()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("""
+        SELECT p.*, v.matricula, v.proprietario 
+        FROM permissoes_acesso p
+        JOIN veiculos_cadastrado v ON p.id_veiculo = v.id_veiculo
+    """)
+    dados = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return jsonify(dados)
+
+
+@app.route('/api/permissoes/<int:id>', methods=['PUT'])
+def atualizar_permissao(id):
+    try:
+        dados = request.get_json()
+        print("DADOS RECEBIDOS:", dados)
+
+        validade = dados.get('validade')
+        horario = dados.get('horario_acesso')
+        tipo = dados.get('tipo_usuario')
+
+        conn = conectar()
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE permissoes_acesso
+            SET validade=%s, horario_acesso=%s, tipo_usuario=%s
+            WHERE id_permissao=%s
+        """, (validade, horario, tipo, id))
+        conn.commit()
+        return jsonify({"status": "sucesso", "mensagem": "Permissão atualizada."})
+    except Exception as e:
+        print("ERRO AO ATUALIZAR:", e)
+        return jsonify({"status": "erro", "mensagem": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
+        
+# Remover permissão
+@app.route('/api/permissoes/<int:id>', methods=['DELETE'])
+def deletar_permissao(id):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM permissoes_acesso WHERE id_permissao=%s", (id,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return jsonify({"status": "sucesso", "mensagem": "Permissão removida."})
 
 
 if __name__ == '__main__':

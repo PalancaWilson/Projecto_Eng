@@ -2,6 +2,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 from db_config import conectar
+from datetime import datetime
 
 import os
 from werkzeug.utils import secure_filename
@@ -41,6 +42,8 @@ def login():
         return jsonify({"status": "sucesso", "usuario": usuario})
     else:
         return jsonify({"status": "erro", "mensagem": "Credenciais inválidas."}), 401
+    
+    
 @app.route('/cadastrar-veiculo', methods=['POST'])
 def cadastrar_veiculo():
     # Coleta dados do formulário via FormData
@@ -120,6 +123,84 @@ def dashboard_data():
         "acessos_dia": acessos_dia,
         "pendentes": pendentes
     })
+
+
+@app.route("/dashboard-seguranca", methods=["GET"])
+def dados_dashboard_seguranca():
+    conn = conectar()
+    cursor = conn.cursor(dictionary=True)
+
+    try:
+        cursor.execute("SELECT COUNT(*) AS total FROM veiculos_cadastrado WHERE estado = 'Ativo'")
+        total_autorizados = cursor.fetchone()["total"]
+#   cursor.execute("SELECT COUNT(*) FROM veiculos_cadastrado")
+ #   total_veiculos = cursor.fetchone()[0]
+
+        cursor.execute("SELECT COUNT(*) AS total FROM acessos WHERE estado = 'Recusado'")
+        tentativas_negadas = cursor.fetchone()["total"]
+
+        cursor.execute("SELECT COUNT(*) AS total FROM acessos WHERE data_acesso = CURDATE()")
+        acessos_hoje = cursor.fetchone()["total"]
+
+        return jsonify({
+            "total_autorizados": total_autorizados,
+            "tentativas_negadas": tentativas_negadas,
+            "acessos_hoje": acessos_hoje
+        })
+
+    except Exception as e:
+        return jsonify({"erro": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
+
+@app.route("/ultimos-acessos", methods=["GET"])
+def ultimos_acessos():
+    conn = conectar()
+    cursor = conn.cursor(dictionary=True)
+
+    try:
+        query = """
+            SELECT 
+                TIME_FORMAT(a.hora_acesso, '%H:%i') AS hora,
+                v.matricula,
+                a.estado
+            FROM acessos a
+            JOIN veiculos_cadastrado v ON a.id_carro = v.id_veiculo
+            ORDER BY a.data_acesso DESC, a.hora_acesso DESC
+            LIMIT 10
+        """
+        cursor.execute(query)
+        resultados = cursor.fetchall()
+        return jsonify(resultados)
+    except Exception as e:
+        return jsonify({"erro": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
+
+@app.route("/grafico-acessos", methods=["GET"])
+def grafico_acessos():
+    conn = conectar()
+    cursor = conn.cursor(dictionary=True)
+
+    try:
+        cursor.execute("""
+            SELECT HOUR(hora_acesso) AS hora, COUNT(*) AS total
+            FROM acessos
+            WHERE data_acesso = CURDATE()
+            GROUP BY HOUR(hora_acesso)
+            ORDER BY hora
+        """)
+        dados = cursor.fetchall()
+        return jsonify(dados)
+    except Exception as e:
+        return jsonify({"erro": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
 
 
 @app.route("/frequentadores", methods=["GET"])

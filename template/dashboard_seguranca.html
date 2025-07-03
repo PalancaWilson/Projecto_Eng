@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - ISPSECURITY</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../static/css/dashbourdSeguranca.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body class="bg-base">
+
+  <div class="container-dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h1 class="logo">ISPSECURITY</h1>
+      <nav class="menu">
+        <a href="#" class="flex items-center gap-2 p-2 rounded bg-[#2c3d87]">
+            <span class="material-symbols-outlined">dashboard</span> Dashboard (Home)
+          </a>
+          <a href="#" class="flex items-center gap-2 p-2 hover:bg-[#2c3d87] rounded">
+            <span class="material-symbols-outlined">camera</span> Reconhecimento
+          </a>
+          <a href="#" class="flex items-center gap-2 p-2 hover:bg-[#2c3d87] rounded">
+            <span class="material-symbols-outlined">menu_book</span> Histórico de Acessos
+          </a>
+          <a href="#" class="flex items-center gap-2 p-2 hover:bg-[#2c3d87] rounded">
+            <span class="material-symbols-outlined">notifications</span> Alertas
+          </a>
+          <a href="#" class="flex items-center gap-2 p-2 hover:bg-[#2c3d87] rounded">
+            <span class="material-symbols-outlined">settings</span> Configurações
+          </a>
+      </nav>
+      
+      
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+
+      <!-- Topo -->
+      <div class="topbar">
+        <div class="titulo-dashboard"><span class="material-symbols-outlined">
+          browse
+          </span> 
+          Dashboard</div>
+        <button id="logout" class="btn-sair">⏻</button>
+      </div>
+      
+      <section class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white rounded-xl p-4 flex items-center gap-4 shadow">
+          <span class="material-symbols-outlined text-4xl text-[#3a5af7]">directions_car</span>
+          <div>
+            <h3 id="total-autorizados" class="text-xl font-bold text-[#0b1f55]">423</h3>
+            <p class="text-sm text-gray-500">Veículos Autorizados</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-4 flex items-center gap-4 shadow">
+          <span class="material-symbols-outlined text-4xl text-[#3a5af7]">block</span>
+          <div>
+            <h3 id="tentativas-negadas" class="text-xl font-bold text-[#0b1f55]">20</h3>
+            <p class="text-sm text-gray-500">Tentativas de acesso negadas</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-4 flex items-center gap-4 shadow">
+          <span class="material-symbols-outlined text-4xl text-[#3a5af7]">calendar_today</span>
+          <div>
+            <h3 id="acessos-hoje" class="text-xl font-bold text-[#0b1f55]">132</h3>
+            <p class="text-sm text-gray-500">Acessos totais de hoje</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl flex items-center justify-center shadow">
+          <button id="ver-alertas" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Ver alertas</button>
+        </div>
+      </section>
+
+      <!-- Tabela e gráfico -->
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Tabela de acessos -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h2 class="text-lg font-semibold mb-4">Últimos acessos</h2>
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="text-gray-500 border-b">
+                <th class="pb-2">Hora</th>
+                <th class="pb-2">Matrícula</th>
+                <th class="pb-2">Estado</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-acessos">
+              <!-- Preenchido dinamicamente -->
+              <tr>
+                <td class="py-2">10:30</td>
+                <td>LD-51-15-HZ</td>
+                <td><span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">Autorizado</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Gráfico -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h2 class="text-lg font-semibold mb-4">Acessos hoje</h2>
+          <canvas id="grafico-acessos" height="200"></canvas>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="../static/js/script_seguranca.js"></script>
+</body>
+</html>

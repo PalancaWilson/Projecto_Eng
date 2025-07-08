@@ -19,19 +19,19 @@
     <aside class="sidebar">
       <h1 class="logo">ISPSECURITY</h1>
       <nav class="menu">
-        <a href="../template/dashboard_seguranca.html" class="flex items-center gap-2 p-2 rounded bg-[#2c3d87]" class="menu-item ative">
+        <a href="../template/dashboard_seguranca.html" class="menu-item active">
             <span class="material-symbols-outlined">dashboard</span> Dashboard (Home)
           </a>
-          <a href="../template/Camera_Sec.html" class="flex items-center gap-2 p-2 hover:bg-[#2c3d87] rounded">
+          <a href="../template/Camera_Sec.html" class="menu-item">
             <span class="material-symbols-outlined">camera</span> Reconhecimento
           </a>
-          <a href="#" class="flex items-center gap-2 p-2 hover:bg-[#2c3d87] rounded">
+          <a href="#" class="menu-item">
             <span class="material-symbols-outlined">menu_book</span> Histórico de Acessos
           </a>
-          <a href="#" class="flex items-center gap-2 p-2 hover:bg-[#2c3d87] rounded">
+          <a href="#" class="menu-item">
             <span class="material-symbols-outlined">notifications</span> Alertas
           </a>
-          <a href="#" class="flex items-center gap-2 p-2 hover:bg-[#2c3d87] rounded">
+          <a href="#" class="menu-item">
             <span class="material-symbols-outlined">settings</span> Configurações
           </a>
       </nav>
@@ -52,6 +52,8 @@
       </div>
       
       <section class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        
+        
         <div class="bg-white rounded-xl p-4 flex items-center gap-4 shadow">
           <span class="material-symbols-outlined text-4xl text-[#3a5af7]">directions_car</span>
           <div>
@@ -104,7 +106,7 @@
 
         <!-- Gráfico -->
         <div class="bg-white p-6 rounded-xl shadow">
-          <h2 class="text-lg font-semibold mb-4">Acessos hoje</h2>
+          <h2 class="text-lg font-semibold mb-4">Fluxo de Acesso (Horas)</h2>
           <canvas id="grafico-acessos" height="200"></canvas>
         </div>
       </section>

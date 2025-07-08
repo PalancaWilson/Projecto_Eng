@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  // 💾 Submeter alteração de permissão
+  //  Submeter alteração de permissão
   document.querySelector('button[type="submit"]').addEventListener('click', e => {
     e.preventDefault();
     if (!permissaoSelecionada) {

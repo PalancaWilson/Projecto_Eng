@@ -19,19 +19,19 @@
     <aside class="sidebar">
       <h1 class="logo">ISPSECURITY</h1>
       <nav class="menu">
-        <a href="../template/dashboard_seguranca.html" class="flex items-center gap-2 p-2 rounded bg-[#2c3d87]">
+        <a href="../template/dashboard_seguranca.html" class="menu-item">
             <span class="material-symbols-outlined">dashboard</span> Dashboard (Home)
           </a>
-          <a href="../template/Camera_Sec.html" class="flex items-center gap-2 p-2 hover:bg-[#2c3d87] rounded" >
+          <a href="../template/Camera_Sec.html" class="menu-item active" >
             <span class="material-symbols-outlined">camera</span> Reconhecimento
           </a>
-          <a href="#" class="flex items-center gap-2 p-2 hover:bg-[#2c3d87] rounded">
+          <a href="#" class="menu-item">
             <span class="material-symbols-outlined">menu_book</span> Histórico de Acessos
           </a>
-          <a href="#" class="flex items-center gap-2 p-2 hover:bg-[#2c3d87] rounded">
+          <a href="#" class="menu-item">
             <span class="material-symbols-outlined">notifications</span> Alertas
           </a>
-          <a href="#" class="flex items-center gap-2 p-2 hover:bg-[#2c3d87] rounded">
+          <a href="#" class="menu-item">
             <span class="material-symbols-outlined">settings</span> Configurações
           </a>
       </nav>
@@ -44,23 +44,49 @@
 
       <!-- Topo -->
       <div class="topbar">
+        
         <div class="titulo-dashboard"><span class="material-symbols-outlined">camera</span> Reconhecimento</div>
         <button id="logout" class="btn-sair">⏻</button>
+       
       </div>
       
       <!-- Câmera ao vivo -->
-<section class="bg-white p-6 rounded-xl shadow mt-4">
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-lg font-semibold">Reconhecimento por Câmera</h2>
-      <button id="btn-ativar-camera" class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
-        Ativar Câmera
-      </button>
-    </div>
-  
-    <div class="w-full flex justify-center">
-      <video id="camera-video" class="rounded-lg border shadow" autoplay playsinline width="480" height="360"></video>
-    </div>
-  </section>
+      <section class="bg-white p-6 rounded-xl shadow mt-4">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-semibold">Reconhecimento por Câmera</h2>
+          <div class="flex gap-2">
+            <button id="btn-ativar-camera" class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+              Ativar Câmera
+            </button>
+            <button id="btn-capturar-foto" class="bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700 transition" disabled>
+              Capturar Foto
+            </button>
+          </div>
+        </div>
+      
+        <div class="w-full flex justify-center mb-4">
+          <video id="camera-video" class="rounded-lg border shadow" autoplay playsinline width="480" height="360"></video>
+        </div>
+      
+        <div class="w-full flex justify-center">
+          <canvas id="canvas-preview" class="hidden border rounded-lg shadow" width="480" height="360"></canvas>
+        </div>
+
+        <div class="w-full flex justify-center">
+          <canvas id="canvas-preview" class="hidden border rounded-lg shadow" width="480" height="360"></canvas>
+        </div>
+        
+        <!-- Resultado da análise -->
+        <div id="resultado-analise" class="hidden mt-6 bg-white rounded-xl shadow p-4 w-full max-w-md mx-auto text-center">
+          <h3 class="text-lg font-semibold mb-2">Resultado da Análise</h3>
+          <img id="imagem-capturada" src="" alt="Imagem Capturada" class="w-80 mx-auto rounded mb-3 border" />
+          <p><strong>Matrícula:</strong> <span id="matricula-analisada" class="text-blue-700"></span></p>
+          <p><strong>Status:</strong> <span id="estado-analisado" class="text-green-700 font-medium"></span></p>
+        </div>
+        
+      </section>
+      
+      
       
     </main>
   </div>

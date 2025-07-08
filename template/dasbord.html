@@ -104,16 +104,36 @@
           </div>
         </div>
 
-
-      </div>
-
-      <!-- Conteúdo inferior -->
-      <div class="conteudo-secundario">
-        <h3>Lorem Ipsum</h3>
-        <div class="placeholder-linhas">
-          <div></div><div></div><div></div><div></div>
+        <!-- Tabela e gráfico -->
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Tabela de acessos -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h2 class="text-lg font-semibold mb-4">Últimos acessos</h2>
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="text-gray-500 border-b">
+                <th class="pb-2">Hora</th>
+                <th class="pb-2">Matrícula</th>
+                <th class="pb-2">Estado</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-acessos">
+              <!-- Preenchido dinamicamente -->
+              <tr>
+                <td class="py-2">10:30</td>
+                <td>LD-51-15-HZ</td>
+                <td><span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">Autorizado</span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
+
+        <!-- Gráfico -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h2 class="text-lg font-semibold mb-4">Acessos hoje</h2>
+          <canvas id="grafico-acessos" height="200"></canvas>
+        </div>
+      </section>
 
     </main>
   </div>

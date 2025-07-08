@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
       fetch(`http://localhost:5000/api/historico?busca=${filtro}`)
         .then(res => res.json())
         .then(data => {
+          const tabela = document.getElementById('acessosTableBody');
           tabela.innerHTML = '';
           data.forEach(acesso => {
             const linha = document.createElement('tr');
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
   
+    
     campoPesquisa.addEventListener('input', () => carregarHistorico(campoPesquisa.value));
     carregarHistorico(); // inicial
   });
@@ -69,10 +71,9 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(data => {
         if (data.status === 'sucesso') {
           alert('Removido com sucesso!');
-          carregarHistorico();
+          carregarHistorico(); // <-- Agora está acessível
         } else {
           alert('Erro: ' + data.mensagem);
         }
       });
   }
-  
